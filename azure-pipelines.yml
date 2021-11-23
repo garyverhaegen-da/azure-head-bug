@@ -15,11 +15,11 @@ steps:
 - bash: |
     set -euo pipefail
 
-    echo "Running on: $(git rev-parse HEAD"
+    echo "Running on: $(git rev-parse HEAD)"
 
     branch=$(Build.SourceBranchName)
     echo "Bumping branch: $branch"
     git checkout $branch
     git commit --allow-empty -m "bump sha"
     git push origin $branch
-    exit 1
+    [ "$branch" == "main"]
