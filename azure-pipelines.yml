@@ -19,12 +19,12 @@ steps:
 
     branch=$(Build.SourceBranchName)
     echo "Branch reported by Azure: $branch"
-    if [ "$branch" == "main"]; then
+    if [ "$branch" == "main" ]; then
         exit 0
     else
         echo "Bumping main"
         git checkout main
-        git commit --allow-empty -m "bump sha"
+        git -c "user.name=ci" -c "user.email=ci@eample.com" commit --allow-empty -m "bump sha"
         git push origin main
         exit 1
     fi
