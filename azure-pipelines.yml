@@ -18,6 +18,7 @@ steps:
     echo "Running on: $(git rev-parse HEAD)"
 
     branch=$(Build.SourceBranchName)
+    echo "Branch reported by Azure: $branch"
     if [ "$branch" == "main"]; then
         exit 0
     else
