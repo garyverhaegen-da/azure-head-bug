@@ -1,0 +1,25 @@
+trigger: none
+
+pr:
+  autoCancel: true # cancel previous builds on push
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- checkout: self
+  persistCredentials: true
+- bash: |
+    set -euo pipefail
+
+    echo "Running on: $(git rev-parse HEAD"
+
+    branch=$(Build.SourceBranchName)
+    echo "Bumping branch: $branch"
+    git checkout $branch
+    git commit --allow-empty -m "bump sha"
+    git push origin $branch
+    exit 1
