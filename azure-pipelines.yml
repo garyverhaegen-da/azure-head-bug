@@ -17,7 +17,7 @@ steps:
 
     echo "Running on: $(git rev-parse HEAD)"
 
-    branch=$(Build.SourceBranchName)
+    branch=$(git rev-parse --abbrev-ref HEAD^2)
     echo "Bumping branch: $branch"
     git checkout $branch
     git commit --allow-empty -m "bump sha"
