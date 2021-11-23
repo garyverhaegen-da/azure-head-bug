@@ -17,9 +17,13 @@ steps:
 
     echo "Running on: $(git rev-parse HEAD)"
 
-    branch=$(git rev-parse --abbrev-ref HEAD^2)
-    echo "Bumping branch: $branch"
-    git checkout $branch
-    git commit --allow-empty -m "bump sha"
-    git push origin $branch
-    [ "$branch" == "main"]
+    branch=$(Build.SourceBranchName)
+    if [ "$branch" == "main"]; then
+        exit 0
+    else
+        echo "Bumping main"
+        git checkout main
+        git commit --allow-empty -m "bump sha"
+        git push origin main
+        exit 1
+    fi
